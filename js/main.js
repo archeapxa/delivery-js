@@ -25,6 +25,7 @@ const buttonOut = document.querySelector('.button-out');
 let login = localStorage.getItem('gloDelivery');
 
 function toggleModalAuth() {
+  loginInput.style.borderColor = '';
   modalAuth.classList.toggle('is-open');
 }
 
@@ -59,16 +60,20 @@ function notAuthorized() {
 
   function logIn(event) {
     event.preventDefault();
-    login = loginInput.value;
 
-    localStorage.setItem('gloDelivery', login);
+    if (loginInput.value) {
 
-    toggleModalAuth();
-    buttonAuth.removeEventListener('click', toggleModalAuth);
-    closeAuth.removeEventListener('click', toggleModalAuth); 
-    logInForm.removeEventListener('submit', logIn);
-    logInForm.reset();
-    checkAuth();
+      login = loginInput.value;
+      localStorage.setItem('gloDelivery', login);
+      toggleModalAuth();
+      buttonAuth.removeEventListener('click', toggleModalAuth);
+      closeAuth.removeEventListener('click', toggleModalAuth); 
+      logInForm.removeEventListener('submit', logIn);
+      logInForm.reset();
+      checkAuth();
+    } else {
+      loginInput.style.borderColor = 'red';
+    }
   }
 
   buttonAuth.addEventListener('click', toggleModalAuth);
