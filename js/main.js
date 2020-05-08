@@ -149,15 +149,20 @@ function openGoods(event) {
   const restaurant = target.closest('.card-restaurant');
 
   if (restaurant) {
-    containerPromo.classList.add('hide');
-    restaurants.classList.add('hide');
-    menu.classList.remove('hide');
 
-    cardsMenu.textContent = '';
+    if (login) {
 
-    createCardGood();
-    createCardGood();
-    createCardGood();
+      cardsMenu.textContent = '';
+      containerPromo.classList.add('hide');
+      restaurants.classList.add('hide');
+      menu.classList.remove('hide');
+
+      createCardGood();
+      createCardGood();
+      createCardGood();
+    } else {
+      toggleModalAuth();
+    }
   }
 }
 
