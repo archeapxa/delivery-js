@@ -25,6 +25,7 @@ let login = localStorage.getItem('gloDelivery');
 function toggleModalAuth() {
   loginInput.style.borderColor = '';
   modalAuth.classList.toggle('is-open');
+
 }
 
 function toggleModal() {
@@ -42,6 +43,7 @@ function authorized() {
     buttonOut.style.display = '';
     buttonOut.removeEventListener('click', logOut);
     checkAuth();
+    returnMain();
   }
 
   console.log('Authorized');
@@ -149,9 +151,7 @@ function openGoods(event) {
   const restaurant = target.closest('.card-restaurant');
 
   if (restaurant) {
-
     if (login) {
-
       cardsMenu.textContent = '';
       containerPromo.classList.add('hide');
       restaurants.classList.add('hide');
@@ -166,20 +166,29 @@ function openGoods(event) {
   }
 }
 
+function returnMain() {
+  containerPromo.classList.remove('hide')
+  restaurants.classList.remove('hide')
+  menu.classList.add('hide')
+}
+
 cartButton.addEventListener("click", toggleModal);
 
 close.addEventListener("click", toggleModal);
 
 cardsRestaurants.addEventListener('click', openGoods);
 
-logo.addEventListener('click', function () {
-  containerPromo.classList.remove('hide')
-  restaurants.classList.remove('hide')
-  menu.classList.add('hide')
-})
+logo.addEventListener('click', returnMain);
 
 checkAuth();
 
 createCardRestaurant();
 createCardRestaurant();
 createCardRestaurant();
+
+new Swiper('.swiper-container', {
+  loop: true,
+  autoplay: {
+    delay: 5000,
+  }
+}); 
