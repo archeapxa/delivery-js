@@ -611,7 +611,7 @@ button {
 
 
     .pizza {
-        padding: 50px;
+        /* padding: 50px; */
         background-size: 500px;
         background-position: center right -200px;
     }
