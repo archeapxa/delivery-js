@@ -1,7 +1,6 @@
 'use strict';
 
 
-
 const cartButton = document.querySelector("#cart-button");
 const modal = document.querySelector(".modal");
 const close = document.querySelector(".close");
@@ -31,7 +30,11 @@ const buttonClearCart = document.querySelector('.clear-cart')
 
 let login = localStorage.getItem('gloDelivery');
 
-const cart = [];
+const cart = JSON.parse(localStorage.getItem('gloDeliveryCart')) || [];
+
+const saveCart = function() {
+  localStorage.setItem('gloDeliveryCart', JSON.stringify(cart))
+}
 
 const getData = async function (url) {
   
@@ -207,9 +210,9 @@ function openGoods(event) {
 }
 
 function returnMain() {
-  containerPromo.classList.remove('hide')
-  restaurants.classList.remove('hide')
-  menu.classList.add('hide')
+  containerPromo.classList.remove('hide');
+  restaurants.classList.remove('hide');
+  menu.classList.add('hide');
 }
 
 function addToCart(event) {
@@ -238,6 +241,7 @@ function addToCart(event) {
       });
     }
   }
+  saveCart();
 }
 
 function renderCart() {
@@ -261,7 +265,7 @@ function renderCart() {
   
   const totalPrice = cart.reduce(function(result, item) { 
     return result + (parseFloat(item.cost) * item.count); 
-  }, 0)
+  }, 0);
 
   modalPrice.textContent = totalPrice + ' ₽';
 
@@ -286,6 +290,7 @@ function changeCount(event) {
 
     renderCart();
   }
+  saveCart();
 }
 
 function init() {
@@ -307,6 +312,7 @@ function init() {
   buttonClearCart.addEventListener('click', function() {
     cart.length = 0;
     renderCart();
+    saveCart();
   })
   
   cardsRestaurants.addEventListener('click', openGoods);
